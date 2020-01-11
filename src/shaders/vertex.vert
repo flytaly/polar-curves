@@ -1,4 +1,4 @@
-uniform float time;
+uniform float u_time;
 varying vec2 vUv;
 
 void main() {
