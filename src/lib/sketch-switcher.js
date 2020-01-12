@@ -1,5 +1,7 @@
+const storage = window.localStorage;
+
 export default function sketchSwitcher(sketches = [], container) {
-  let activeIdx = 0;
+  let activeIdx = +storage.getItem('activeIdx') || 0;
   let currentSketch = null;
   let liElems = [];
 
@@ -32,6 +34,7 @@ export default function sketchSwitcher(sketches = [], container) {
     if (target.tagName === 'LI') {
       currentSketch && currentSketch.stop();
       activeIdx = Number(target.dataset.id);
+      storage.setItem('activeIdx', activeIdx);
       displaySketch(activeIdx);
       setActiveClass();
     }
