@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import vertexShader from './shaders/vertex.vert';
 import fragmentShader from './shaders/fragment-02.frag';
-import BaseSketch from './base-sketch';
+import BaseSketch from './lib/base-sketch';
 
 export default class Sketch extends BaseSketch {
   constructor(selector) {

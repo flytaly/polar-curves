@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import vertexShader from './shaders/vertex.vert';
 import fragmentShader from './shaders/fragment-01.frag';
-import BaseSketch from './base-sketch';
+import BaseSketch from './lib/base-sketch';
 import gsap from 'gsap';
 
 export default class Sketch extends BaseSketch {
