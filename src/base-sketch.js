@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import * as dat from 'dat.gui';
 
 export default class BaseSketch {
   constructor(selector, width, height) {
@@ -21,10 +22,23 @@ export default class BaseSketch {
 
     this.listenResize();
     this.setSizes();
+    this.gui = new dat.GUI();
   }
 
   listenResize() {
     window.addEventListener('resize', () => this.setSizes());
+  }
+
+  stop() {
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+    }
+    if (this.gui) {
+      this.gui.destroy();
+    }
+    while (this.container.firstChild) {
+      this.container.removeChild(this.container.firstChild);
+    }
   }
 
   setSizes() {

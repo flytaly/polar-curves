@@ -33,29 +33,28 @@ void main()	{
     polar.x += PI;
     polar.y -= u_radius;
 
-    // polar.x -= t;
-
+    float amplitude = (sin(t)+2.) * 0.2 * u_amplitude;
+    float period = u_period;
 
     float fraction = mod(polar.x + t + PI * 0.5, 2.*PI);
     float fraction4 = mod(-polar.x + t, PI*0.5);
 
     vec4 color = vec4(0., 0., 0., 0.);
     vec4 colorR = vec4(0.8, 0., 0., 1.);
-    vec4 colorG = vec4(0., 0.8, 0., 1.);
     vec4 colorGrey = vec4(.0, .0, .0, .3);
     vec4 colorGrey2 = vec4(0.3, 0.3, 0.3, 1.);
     vec4 currentColor = colorGrey2;
 
-    color = clamp(currentColor * sinCurve(polar, u_period, u_amplitude*0.3, u_width*1.5) , 0., 1.);
-    color += clamp(currentColor * sinCurve(polar, u_period, u_amplitude*0.3, u_width*1.5) - fraction4, 0., 1.);
+    color = clamp(currentColor * sinCurve(polar, period, amplitude*0.3, u_width*1.5), 0., 1.);
+    color += clamp(currentColor * sinCurve(polar, period, amplitude*0.3, u_width*1.5) - fraction4, 0., 1.);
 
     polar.y += 0.2;
     polar.x += t;
-    color += clamp(colorR * sinCurve(polar, u_period, sin(t)*0.04 + u_amplitude, u_width) , 0., 1.);
+    color += clamp(colorR * sinCurve(polar, period, sin(t*2.)*0.04 + amplitude, u_width), 0., 1.);
 
     polar.y -= 0.11;
     polar.x -= t*1.5;
-    color += clamp(currentColor * sinCurve(vec2(polar.x, polar.y), u_period, u_amplitude*0.9, u_width), 0., 1.);
+    color += clamp(currentColor * sinCurve(vec2(polar.x, polar.y), period, amplitude*0.9, u_width), 0., 1.);
 
 
     // color = clamp(colorG * sinCurve(polar, 10., u_amplitude*0.3, u_width*1.5) , 0., 1.);
