@@ -37,7 +37,7 @@ void main()	{
 
 
     float fraction = mod(polar.x + t + PI * 0.5, 2.*PI);
-    float fraction4 = mod(polar.x - t, PI*0.5);
+    float fraction4 = mod(-polar.x + t, PI*0.5);
 
     vec4 color = vec4(0., 0., 0., 0.);
     vec4 colorR = vec4(0.8, 0., 0., 1.);

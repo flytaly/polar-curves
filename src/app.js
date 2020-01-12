@@ -3,6 +3,7 @@ import vertexShader from './shaders/vertex.vert';
 import fragmentShader from './shaders/fragment.frag';
 import BaseSketch from './base-sketch';
 import * as dat from 'dat.gui';
+import gsap from 'gsap';
 
 export default class Sketch extends BaseSketch {
   constructor(selector) {
@@ -11,6 +12,7 @@ export default class Sketch extends BaseSketch {
     this.addObjects();
     this.datGuiSettings();
     this.animate();
+    this.initialAnimation();
   }
 
   datGuiSettings() {
@@ -32,9 +34,9 @@ export default class Sketch extends BaseSketch {
       u_resolution: { type: 'v2', value: new THREE.Vector2(this.width, this.height) },
       u_isPolar: { type: 'b', value: true },
       u_period: { type: 'f', value: 8 },
-      u_radius: { type: 'f', value: 0.3 },
-      u_amplitude: { type: 'f', value: 0.03 },
-      u_width: { type: 'f', value: 0.12 },
+      u_radius: { type: 'f', value: 0 }, // 0.3
+      u_amplitude: { type: 'f', value: 0 }, // 0.03
+      u_width: { type: 'f', value: 0 }, //0.12
       u_blur: { type: 'f', value: 0.01 },
     };
     this.material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader });
@@ -50,6 +52,14 @@ export default class Sketch extends BaseSketch {
 
     this.render();
     requestAnimationFrame(() => this.animate());
+  }
+
+  initialAnimation() {
+    gsap
+      .timeline({ defaults: { duration: 2, ease: 'bounce.out' } })
+      .to(this.material.uniforms.u_radius, { value: 0.3 })
+      .to(this.material.uniforms.u_width, { value: 0.12 }, '-=1')
+      .to(this.material.uniforms.u_amplitude, { duration: 1, ease: 'back.out(4),', value: 0.03 }, '-=1.5');
   }
 }
 
